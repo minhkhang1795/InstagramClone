@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">InstagramClone</string>
+    <string name="main_activity_name">Popular Photos</string>
+</resources>
