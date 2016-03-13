@@ -31,6 +31,7 @@ The following **additional** features are implemented:
 
 * [x] Implement Recycler View
 * [x] Hide/Show Toolbar when Recycler is scroll down/up
+* [x] Show progress bar inside the image during loading
 
 ## Video Walkthrough 
 
