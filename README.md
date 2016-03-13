@@ -18,8 +18,8 @@ The following **optional** features are implemented:
 * [x] User can **pull-to-refresh** popular stream to get the latest popular photos
 * [ ] User can see latest comments for each photo (**bonus** - Show last 2 comments for each photo)
 * [x] User can see all the profile images in circles (Hint, use [RoundedImageView](https://github.com/vinc3m1/RoundedImageView))
-* [ ] Display a nice default placeholder graphic for each image during loading
-* [ ] Improved the user interface through styling and coloring
+* [x] Display a nice default placeholder graphic for each image during loading
+* [x] Improved the user interface through styling and coloring
 
 The following **bonus** features are implemented:
 
