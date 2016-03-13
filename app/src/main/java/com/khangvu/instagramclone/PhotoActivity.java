@@ -38,8 +38,30 @@ public class PhotoActivity extends AppCompatActivity {
 
         initToolbar();
         initRecyclerView();
+        initSwipeContainer();
+        fetchPopularPhotos();
+    }
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+    private void initToolbar() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        setTitle(getString(R.string.main_activity_name));
+        mToolbar.setTitleTextColor(ContextCompat.getColor(getBaseContext(), android.R.color.white));
+    }
+
+    private void initRecyclerView() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.photos_recycler_view);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new PhotosAdapter(mPhotosList);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void initSwipeContainer() {
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -53,27 +75,6 @@ public class PhotoActivity extends AppCompatActivity {
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(R.color.colorPrimary,
                 R.color.colorPrimaryDark);
-
-        fetchPopularPhotos();
-    }
-
-    private void initToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        setTitle(getString(R.string.main_activity_name));
-        mToolbar.setTitleTextColor(ContextCompat.getColor(getBaseContext(), android.R.color.white));
-    }
-
-    private void initRecyclerView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.photos_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        mAdapter = new PhotosAdapter(mPhotosList);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     public void fetchPopularPhotos() {
@@ -100,7 +101,6 @@ public class PhotoActivity extends AppCompatActivity {
                         photo.setmUserName(photoJson.getJSONObject("user").getString("username"));
                         photo.setmCaption(photoJson.getJSONObject("caption").getString("text"));
                         photo.setmImageUrl(photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("url"));
-                        photo.setmImageWidth(photoJson.getJSONObject("images").getJSONObject("standard_resolution").getInt("width"));
                         photo.setmProfileImageUrl(photoJson.getJSONObject("user").getString("profile_picture"));
                         photo.setmTimeStamp(photoJson.getJSONObject("caption").getString("created_time"));
                         photo.setmLikeCount(photoJson.getJSONObject("likes").getInt("count"));

@@ -5,7 +5,7 @@ package com.khangvu.instagramclone;
  */
 public class Photo {
     private String mUserName, mCaption, mImageUrl, mProfileImageUrl, mTimeStamp;
-    private int mLikeCount, mImageWidth;
+    private int mLikeCount;
 
     public Photo() {
     }
@@ -58,11 +58,4 @@ public class Photo {
         this.mLikeCount = likeCount;
     }
 
-    public int getmImageWidth() {
-        return mImageWidth;
-    }
-
-    public void setmImageWidth(int imageWidth) {
-        this.mImageWidth = imageWidth;
-    }
 }

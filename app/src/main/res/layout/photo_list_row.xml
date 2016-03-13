@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:focusable="true"
     android:clickable="true"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/top_layout"
@@ -19,6 +19,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
+            android:contentDescription="@string/photo_image_description"
             android:adjustViewBounds="true" />
         <TextView
             android:id="@+id/user_name_text_view"
@@ -39,26 +40,54 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/photo_image_view"
+    <RelativeLayout
+        android:id="@+id/image_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/top_layout"
-        android:adjustViewBounds="true"
-        android:minHeight="50dp" />
+        android:layout_below="@id/top_layout">
+
+        <ImageView
+            android:id="@+id/photo_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/image_border"
+            android:paddingTop="0.25dp"
+            android:contentDescription="@string/photo_image_description"
+            android:adjustViewBounds="true"
+            android:minHeight="50dp" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/like_count_text_view"
+        android:layout_below="@id/image_view_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:paddingTop="8dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp" />
 
     <TextView
         android:id="@+id/caption_text_view"
-        android:layout_below="@id/photo_image_view"
+        android:layout_below="@id/like_count_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
+        android:paddingBottom="10dp"
+        android:paddingTop="6dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
         android:maxLines="3"
         android:ellipsize="end" />
-    <TextView
-        android:id="@+id/like_count_text_view"
-        android:layout_below="@id/caption_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>

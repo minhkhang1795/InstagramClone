@@ -1,15 +1,19 @@
 package com.khangvu.instagramclone;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -28,6 +32,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvUserName, tvCaption, tvLikeCount, tvTimeStamp;
         public ImageView ivPhoto, ivProfileImage;
+        public ProgressBar progressBar;
 
         public MyViewHolder(View view) {
             super(view);
@@ -37,6 +42,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.MyViewHold
             tvTimeStamp = (TextView) view.findViewById(R.id.time_stamp);
             ivPhoto = (ImageView) view.findViewById(R.id.photo_image_view);
             ivProfileImage = (ImageView) view.findViewById(R.id.profile_image_view);
+            progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         }
     }
 
@@ -59,22 +65,61 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Photo photo = mPhotosList.get(position);
         holder.tvUserName.setText(photo.getmUserName());
-        holder.tvCaption.setText(photo.getmCaption());
-        holder.tvLikeCount.setText(String.valueOf(photo.getmLikeCount()));
+
+        // Caption: Primary main dark color = #3A678C
+        String captionString = "<font color=#125688>" + photo.getmUserName() + " </font> <font color=#000>" + photo.getmCaption() + "</font>";
+        holder.tvCaption.setText(Html.fromHtml(captionString));
+        final TextView captionView = holder.tvCaption;
+
+        holder.tvCaption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                captionView.setMaxLines(Integer.MAX_VALUE);
+            }
+        });
+
+        // Likes
+        String likeCountString = "♥ " + photo.getmLikeCount() + " likes";
+        holder.tvLikeCount.setText(Html.fromHtml(likeCountString));
+
+        // Time Stamp
         long timeStamp = Long.valueOf(photo.getmTimeStamp()) * 1000;
         holder.tvTimeStamp.setText(DateUtils.getRelativeTimeSpanString(
                 timeStamp, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS));
+
         // Clear out the image view
         holder.ivPhoto.setImageResource(0);
         holder.ivProfileImage.setImageResource(0);
-        // Insert the image using Picasso
+        // Set Image
         float displayWidth = getDisplayWidth(mContext);
-        Picasso.with(mContext).load(photo.getmImageUrl()).resize((int) displayWidth, 0).into(holder.ivPhoto);
+        holder.progressBar.setVisibility(View.VISIBLE);
+        final ProgressBar progressBar = holder.progressBar;
+        Picasso.with(mContext)
+                .load(photo.getmImageUrl())
+                .placeholder(ContextCompat.getDrawable(mContext, R.drawable.default_placeholder))
+                .resize((int) displayWidth, 0)
+                .into(holder.ivPhoto, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+        // Set Profile image
         Transformation transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(30)
                 .oval(false)
                 .build();
-        Picasso.with(mContext).load(photo.getmProfileImageUrl()).resize(40, 0).transform(transformation).into(holder.ivProfileImage);
+        Picasso.with(mContext)
+                .load(photo.getmProfileImageUrl())
+                .resize(40, 0)
+                .transform(transformation)
+                .into(holder.ivProfileImage);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
