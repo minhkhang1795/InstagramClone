@@ -32,6 +32,7 @@ The following **additional** features are implemented:
 * [x] Implement Recycler View
 * [x] Hide/Show Toolbar when Recycler is scroll down/up
 * [x] Show progress bar inside the image during loading
+* [x] Tapping on the 3-line caption will show the full caption
 
 ## Video Walkthrough 
 
