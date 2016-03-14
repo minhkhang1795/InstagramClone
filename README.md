@@ -23,9 +23,9 @@ The following **optional** features are implemented:
 
 The following **bonus** features are implemented:
 
-* [ ] Allow user to view all comments for an image within a separate activity or dialog fragment
+* [x] Allow user to view all comments for an image within a separate activity or dialog fragment
 * [ ] Allow video posts to be played in full-screen using the VideoView
-* [ ] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code.
+* [x] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code. (Did integrate but not fully use it)
 
 The following **additional** features are implemented:
 
@@ -38,7 +38,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/vuminhkhang1995/InstagramClone/blob/master/InstagramClone-part%201%20-%20Android.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/vuminhkhang1995/InstagramClone/blob/master/%20InstagramClone%20-%20Android.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
