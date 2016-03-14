@@ -23,11 +23,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class PhotoActivity extends AppCompatActivity {
     private ArrayList<Photo> mPhotosList = new ArrayList<>();
-    private RecyclerView mRecyclerView;
     private PhotosAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private Toolbar mToolbar;
-    private SwipeRefreshLayout swipeContainer;
+    SwipeRefreshLayout swipeContainer;
 
     public static final String CLIENT_ID = "2c7a12ed3cf243d69c51d334d4b57dec";
 
@@ -43,6 +40,7 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
+        Toolbar mToolbar;
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         setTitle(getString(R.string.main_activity_name));
@@ -50,9 +48,11 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
+        RecyclerView mRecyclerView;
         mRecyclerView = (RecyclerView) findViewById(R.id.photos_recycler_view);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        RecyclerView.LayoutManager mLayoutManager;
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -103,7 +103,10 @@ public class PhotoActivity extends AppCompatActivity {
                         photo.setmImageUrl(photoJson.getJSONObject("images").getJSONObject("standard_resolution").getString("url"));
                         photo.setmProfileImageUrl(photoJson.getJSONObject("user").getString("profile_picture"));
                         photo.setmTimeStamp(photoJson.getJSONObject("caption").getString("created_time"));
+                        photo.setmMediaId(photoJson.getString("id"));
                         photo.setmLikeCount(photoJson.getJSONObject("likes").getInt("count"));
+                        photo.setmCommentCount(photoJson.getJSONObject("comments").getInt("count"));
+                        photo.setmComments(photoJson.getJSONObject("comments").getJSONArray("data"));
                         mPhotosList.add(photo);
                     }
                     mAdapter.addAll(mPhotosList);

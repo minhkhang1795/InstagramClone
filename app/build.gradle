@@ -33,4 +33,7 @@ dependencies {
     compile 'com.makeramen:roundedimageview:2.2.1'
     // Pull to refresh
     compile 'com.android.support:support-v4:23.2.0'
+    compile 'com.github.danylovolokh:video-player-manager:0.2.0'
+    compile 'com.github.danylovolokh:list-visibility-utils:0.2.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }
